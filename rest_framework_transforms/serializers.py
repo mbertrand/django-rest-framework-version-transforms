@@ -20,8 +20,8 @@ class BaseVersioningSerializer(object):
         if not self.transform_base:
             raise TransformBaseNotDeclaredException("VersioningParser cannot correctly promote incoming resources with no transform classes.")
 
-        data = super(BaseVersioningSerializer, self).to_representation(instance)
         if instance:
+            data = super(BaseVersioningSerializer, self).to_representation(instance)
             request = self.context.get('request')
 
             if request and hasattr(request, 'version'):
@@ -29,5 +29,6 @@ class BaseVersioningSerializer(object):
 
                 for transform in get_transform_classes(self.transform_base, base_version=request.version, reverse=True):
                     data = transform().backwards(data, request, instance)
+            return data
 
-        return data
+        return None

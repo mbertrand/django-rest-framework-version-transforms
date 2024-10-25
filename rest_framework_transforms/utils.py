@@ -25,10 +25,12 @@ def get_transform_classes(transform_base=None, base_version=1, reverse=False):
 
     for name, transform_class in inspect.getmembers(mod):
         if name.startswith(base) and issubclass(transform_class, BaseTransform):
-            transform_index_match = re.search('\d+$', name)
-            if transform_index_match:
+            transform_index_match = re.search(r'\d+$', name)
+            base_version_match = re.search(r'\d+$', str(base_version))
+            if transform_index_match and base_version_match:
                 int_transform_index = int(transform_index_match.group(0))
-                if base_version < int_transform_index:
+                int_base_version = int(base_version_match.group(0))
+                if int_base_version < int_transform_index:
                     transform_classes_dict[int_transform_index] = transform_class
 
     ordered_transform_classes_list = [

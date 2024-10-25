@@ -41,6 +41,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='othertestmodel',
             name='some_foreign_key',
-            field=models.ForeignKey(related_name='new_related_object_id_list', to='tests.TestModelV3'),
+            field=models.ForeignKey(related_name='new_related_object_id_list', to='tests.TestModelV3', on_delete=models.CASCADE),
         ),
     ]

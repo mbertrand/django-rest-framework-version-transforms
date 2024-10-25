@@ -4,6 +4,8 @@ from tests.models import TestModel, TestModelV3
 
 
 class TestModelSerializer(BaseVersioningSerializer, serializers.ModelSerializer):
+    __test__ = False
+
     transform_base = 'tests.test_transforms.TestModelTransform'
 
     class Meta:
@@ -18,6 +20,8 @@ class MatchingModelSerializer(serializers.ModelSerializer):
 
 
 class TestModelSerializerV3(BaseVersioningSerializer, serializers.ModelSerializer):
+    __test__ = False
+
     transform_base = 'tests.test_transforms.TestModelTransform'
 
     class Meta:
@@ -33,6 +37,8 @@ class TestModelSerializerV3(BaseVersioningSerializer, serializers.ModelSerialize
 
 
 class TestSerializer(BaseVersioningSerializer, serializers.Serializer):
+    __test__ = False
+
     transform_base = 'tests.test_transforms.TestModelTransform'
 
     test_field_one = serializers.CharField()
@@ -51,6 +57,8 @@ class MatchingSerializer(serializers.Serializer):
 
 
 class TestSerializerV3(BaseVersioningSerializer, serializers.Serializer):
+    __test__ = False
+
     transform_base = 'tests.test_transforms.TestModelTransform'
 
     test_field_two = serializers.CharField()

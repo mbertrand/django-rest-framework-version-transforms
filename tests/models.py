@@ -3,6 +3,9 @@ from django.db.models import Model
 
 
 class TestModel(Model):
+
+    __test__ = False
+
     test_field_one = models.CharField(max_length=20)
     test_field_two = models.CharField(max_length=20)
     test_field_three = models.CharField(max_length=20)
@@ -11,6 +14,9 @@ class TestModel(Model):
 
 
 class TestModelV3(Model):
+
+    __test__ = False
+
     test_field_two = models.CharField(max_length=20)
     test_field_three = models.CharField(max_length=20)
     test_field_four = models.CharField(max_length=20)
@@ -19,4 +25,4 @@ class TestModelV3(Model):
 
 
 class OtherTestModel(Model):
-    some_foreign_key = models.ForeignKey(TestModelV3, related_name='new_related_object_id_list')
+    some_foreign_key = models.ForeignKey(TestModelV3, related_name='new_related_object_id_list', on_delete=models.CASCADE)

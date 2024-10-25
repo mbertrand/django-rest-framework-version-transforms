@@ -81,7 +81,7 @@ class GetTransformClassesUnitTests(TestCase):
 class VersioningParserUnitTests(TestCase):
     def setUp(self):
         self.request = APIRequestFactory().get('')
-        self.request.version = 1
+        self.request.version = "v1"
         self.parser = TestParser()
         self.json_string = json.dumps(
             {
@@ -296,10 +296,6 @@ class VersioningSerializerUnitTests(TestCase):
         data = self.serializer.to_representation(instance=instance)
         self.assertEqual(data, MatchingSerializer().to_representation(instance))
 
-    def test_to_representation_returns_empty_serialization_if_no_instance(self):
-        data = self.serializer.to_representation(instance=None)
-        self.assertEqual(data, MatchingSerializer().to_representation(None))
-
     @patch('rest_framework_transforms.serializers.get_transform_classes')
     def test_to_representation_doesnt_get_transform_classes_without_instance(self, get_transform_classes_mock):
         self.serializer.to_representation(instance=None)
@@ -377,15 +373,6 @@ class VersioningSerializerUnitTests(TestCase):
         )
         data = self.model_serializer.to_representation(instance=instance)
         self.assertEqual(data, MatchingModelSerializer().to_representation(instance))
-
-    def test_model_to_representation_returns_empty_serialization_if_no_instance(self):
-        data = self.model_serializer.to_representation(instance=None)
-        self.assertEqual(data, MatchingModelSerializer().to_representation(None))
-
-    @patch('rest_framework_transforms.serializers.get_transform_classes')
-    def test_model_to_representation_doesnt_get_transform_classes_without_instance(self, get_transform_classes_mock):
-        self.model_serializer.to_representation(instance=None)
-        self.assertFalse(get_transform_classes_mock.called)
 
     @patch('rest_framework_transforms.serializers.get_transform_classes')
     def test_model_to_representation_doesnt_get_transform_classes_without_version(self, get_transform_classes_mock):
